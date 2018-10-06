@@ -5,6 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { Tasks } from '../api/tasks.js';
 
+
 import Task from './Task.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 import UnirSala from './UnirSala.jsx';
@@ -20,38 +21,7 @@ class App extends Component {
       paso : 1
     };
   }
-  
-  handleSubmit(event) {
-    event.preventDefault();
-    
-    // Find the text field via the React ref
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-    
-    Meteor.call('tasks.insert', text);
-    
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
-  }
-  
-  renderTasks() {
-    let filteredTasks = this.props.tasks;
-    if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => !task.checked);
-    }
-    return filteredTasks.map((task) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
-      
-      return (
-        <Task
-        key={task._id}
-        task={task}
-        showPrivateButton={showPrivateButton}
-        />
-        );
-      });
-    }
-    
+
     render() {
       return (
         <div>
@@ -82,20 +52,16 @@ class App extends Component {
         }
         </header>
         
-        <ul>
-        {this.renderTasks()}
-        </ul>
         </div>
         );
       }
     }
     
     export default withTracker(() => {
-      Meteor.subscribe('tasks');
-      
+      Meteor.subscribe('salas');
+
       return {
-        tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-        incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
         currentUser: Meteor.user(),
+        
       };
     })(App);

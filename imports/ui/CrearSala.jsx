@@ -1,33 +1,46 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import "./Form.css";
-export default class CrearSala extends Component {
+
+import { withTracker } from 'meteor/react-meteor-data';
+
+class CrearSala extends Component {
     constructor(props) {
         super(props);
     }
 
     crearSala() {
-
-        FlowRouter.go("/sala/" + ReactDOM.findDOMNode(this.refs.textInput).value)
-
+        Meteor.call('salas.insert',ReactDOM.findDOMNode(this.refs.textInput).value, (err, res)=>{ 
+            console.log(err);
+            console.log(res)
+            if(!err)
+            FlowRouter.go("/sala/" + this.props.currentUser.username)
+        });
+       
     };
 
     render() {
         return (
             <div className="container contact-form">
-                <form className="new-task2" >
+                <div className="new-task2" >
 
                     <h2>Crear una sala </h2>
                     <input
                         type="text"
                         ref="textInput"
-                        placeholder="Escribe el codigo para crear una sala"
+                        placeholder="Escribe como quieres que se llame tu sala "
                     />
                     <p></p>
                     <button className="btnContactSubmit" onClick={this.crearSala.bind(this)} >crearSala</button>
-                </form>
+                </div>
 
             </div>
         );
     }
 }
+
+export default withTracker(() => {
+    return {
+      currentUser: Meteor.user(),
+    };
+  })(CrearSala);

@@ -11,8 +11,8 @@ FlowRouter.route("/",{
 
 
 
-FlowRouter.route("/sala/:id", {
+FlowRouter.route("/sala/:owner", {
 	action: function(params, queryParams) {
-		mount(Sala, {id:params.id}) 
+		mount(Sala, {owner:params.owner}) 
 	}
 });
