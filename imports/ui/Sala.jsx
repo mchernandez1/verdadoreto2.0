@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Salas} from "../api/salas.js";
 import { withTracker } from 'meteor/react-meteor-data';
-
+import "./Form.css";
 
 
     class Sala extends Component {
@@ -15,6 +15,12 @@ import { withTracker } from 'meteor/react-meteor-data';
             
         }
         this.renderJugadores = this.renderJugadores.bind(this);
+        
+    }
+
+    regresarHome()
+    {
+        FlowRouter.go("/");
     }
 
     renderJugadores()
@@ -29,7 +35,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
     render() {
         return (
-            <div>
+            <div className="container contact-form">
                 {this.props.sala ? 
                 <div>
                 <h1>Bienvenidos a la sala {this.props.sala.name}</h1>
@@ -38,7 +44,9 @@ import { withTracker } from 'meteor/react-meteor-data';
                     <li>{this.renderJugadores()}</li>
 
                 </ul>
-                <button>Empezar el juego</button>
+                <button className="home">Empezar el juego</button>
+                <p></p>
+                <button className="home" onClick={this.regresarHome.bind(this)}>Regresar al inicio</button>
                 </div>
                 : ""}
             </div>

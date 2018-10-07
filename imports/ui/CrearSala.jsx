@@ -10,14 +10,19 @@ class CrearSala extends Component {
     }
 
     crearSala() {
-        Meteor.call('salas.insert',ReactDOM.findDOMNode(this.refs.textInput).value, (err, res)=>{ 
+        Meteor.call('salas.insert', ReactDOM.findDOMNode(this.refs.textInput).value, (err, res) => {
             console.log(err);
             console.log(res)
-            if(!err)
-            FlowRouter.go("/sala/" + this.props.currentUser.username)
+            if (!err)
+                FlowRouter.go("/sala/" + this.props.currentUser.username)
         });
-       
+
     };
+
+    regresarHome()
+    {
+        FlowRouter.go("/");
+    }
 
     render() {
         return (
@@ -32,15 +37,17 @@ class CrearSala extends Component {
                     />
                     <p></p>
                     <button className="btnContactSubmit" onClick={this.crearSala.bind(this)} >crearSala</button>
-                </div>
 
+                </div>
             </div>
+
+        
         );
     }
 }
 
 export default withTracker(() => {
     return {
-      currentUser: Meteor.user(),
+        currentUser: Meteor.user(),
     };
-  })(CrearSala);
+})(CrearSala);

@@ -1,0 +1,37 @@
+html, body {
+    height: 100%;
+    font-family: 'Varela Round' sans-serif;
+    text-align: center;
+  }
+  
+  .container-text h1 {
+    margin-top: 5%;
+    font-size: 3rem;
+    display: inline-block;
+  }
+  .container-text h1 div {
+    position: relative;
+    float: left;
+  }
+  .container-text h1 div:first-child {
+    color: #3498db;
+    margin-right: 1rem;
+  }
+  
+  .container-text p {
+    font-size: 1.2rem;
+    color: gray;
+    text-transform: uppercase;
+  }
+  
+  .delay-1 {
+    -moz-animation-delay: 1s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+  }
+  
+  footer {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+  }

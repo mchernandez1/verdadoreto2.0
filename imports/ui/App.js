@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { Tasks } from '../api/tasks.js';
+import "./App.css";
 
-
-import Task from './Task.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 import UnirSala from './UnirSala.jsx';
 import CrearSala from './CrearSala.jsx';
@@ -24,9 +22,10 @@ class App extends Component {
 
     render() {
       return (
-        <div>
+        <div className="container-text">
+       
         <header>
-        <h1>Verdad o Reto(2.0) </h1>
+        <h1>Verdad o RETO (2.0)</h1>
         
         <AccountsUIWrapper />
         
