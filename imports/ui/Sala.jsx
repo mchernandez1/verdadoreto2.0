@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Salas} from "../api/salas.js";
 import { withTracker } from 'meteor/react-meteor-data';
 import "./Form.css";
+import { Random } from 'meteor/random';
 
 
     class Sala extends Component {
@@ -15,12 +16,18 @@ import "./Form.css";
             
         }
         this.renderJugadores = this.renderJugadores.bind(this);
+        this.renderJugadorAleotorio=this.renderJugadorAleotorio.bind(this);
         
     }
 
     regresarHome()
     {
         FlowRouter.go("/");
+    }
+
+    regresarSala()
+    {
+        FlowRouter.go("/sala/" + this.props.sala.owner)
     }
 
     renderJugadores()
@@ -33,10 +40,22 @@ import "./Form.css";
         })
     }
 
+    
+    renderJugadorAleotorio()
+    {
+        let players=this.props.sala.players;
+        return (
+            <div>
+            <p>{Random.choice(players)}</p>
+            </div>
+        )
+    }
+
+
     render() {
         return (
             <div className="container contact-form">
-                {this.props.sala ? 
+                {this.props.sala && this.state.esperando==true ? 
                 <div>
                 <h1>Bienvenidos a la sala {this.props.sala.name}</h1>
                 <h2>los jugadores en esta sala son:</h2>
@@ -44,10 +63,16 @@ import "./Form.css";
                     <li>{this.renderJugadores()}</li>
 
                 </ul>
-                <button className="home">Empezar el juego</button>
+                <button className="home" onClick= {() => this.setState({esperando : false})}>Jugar</button>
                 <p></p>
                 <button className="home" onClick={this.regresarHome.bind(this)}>Regresar al inicio</button>
                 </div>
+                :this.props.currentUser && this.state.esperando == false ?
+                <div>
+                    <h2>Jugador Seleccionado:{this.renderJugadorAleotorio()}</h2>
+                    <h2>Pregunta/reto seleccionada:</h2>
+                    <button className="home" onClick={() => this.setState({esperando : true})}>Volver a jugar </button>
+                </div> 
                 : ""}
             </div>
         );
