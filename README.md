@@ -35,7 +35,7 @@ Nicolas Simmonds Samper  https://github.com/Nicolas9415
 
 Screenshot:
 
-
+![screenshot](https://raw.githubusercontent.com/jjgonzalez10/verdadoreto2.0/master/images/Captura.PNG )
 
 Steps:
 

@@ -13,11 +13,13 @@ import { Random } from 'meteor/random';
         this.state={
             esperando:true,
             players:[],
+            
             seleccionado:'',
             
         }
         this.renderJugadores = this.renderJugadores.bind(this);
         this.renderJugadorAleotorio=this.renderJugadorAleotorio.bind(this);
+        this.renderPreguntaAleotorio=this.renderPreguntaAleotorio.bind(this);
         
     }
 
@@ -53,6 +55,24 @@ import { Random } from 'meteor/random';
         )
     }
 
+    renderPreguntaAleotorio()
+    {
+        let preguntas=[
+            {
+                "reto" : "quitarse una ceja "
+            },
+            {
+                "reto" : "cuantos novios/as has tenido"
+            }
+        ]
+        let pregunta=Random.choice(preguntas);
+        return (
+            <div>
+            <p>{pregunta}</p>
+            </div>
+        )
+    }
+
 
     render() {
         return (
@@ -73,7 +93,7 @@ import { Random } from 'meteor/random';
                 <div>
                     <h2>Jugador Seleccionado:{this.renderJugadorAleotorio()}</h2>
                     
-                    <h2>Pregunta/reto seleccionada:</h2>
+                    <h2>Pregunta/reto seleccionada:{this.renderPreguntaAleotorio()}</h2>
 
                     <button className="home" onClick={() => this.setState({esperando : true})}>Volver a jugar </button>
                 </div>
