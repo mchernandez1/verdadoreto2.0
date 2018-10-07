@@ -13,6 +13,11 @@ class UnirSala extends Component {
 
     }
 
+
+    regresarSala()
+    {
+        FlowRouter.go("/")
+    }
     unirseSala(idSala) {
 
         Meteor.call('salas.join',idSala,(err,res)=>{
@@ -72,6 +77,7 @@ class UnirSala extends Component {
                     <h2>Unirte a una sala </h2>
                     <p></p>
                     {this.props.salas && this.renderSalas()}
+
                 </div>
 
             </div>

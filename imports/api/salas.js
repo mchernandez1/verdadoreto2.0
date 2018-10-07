@@ -30,10 +30,12 @@ Meteor.methods({
       players:[ Meteor.users.findOne(this.userId).username],
       createdAt: new Date(),
       owner: Meteor.users.findOne(this.userId).username,
+  
     });
   },
   'salas.remove'() {
     let username = Meteor.users.findOne(this.userId).username;
+
     const sala = Salas.findOne({owner:username});
     if ( sala.owner !== username) {
       // If the task is private, make sure only the owner can delete it
@@ -43,8 +45,16 @@ Meteor.methods({
     Salas.remove({owner:username});
   },
   'salas.join'(idOwner) {
-    Salas.update({owner:idOwner}, { $push: { players:Meteor.users.findOne(this.userId).username} });
+    let player =Meteor.users.findOne(this.userId).username;
+
+    if(player!=idOwner)
+    {
+      
+        Salas.update({owner:idOwner}, { $push: { players:player} });
+    }
+
   },
+
 
 });
 

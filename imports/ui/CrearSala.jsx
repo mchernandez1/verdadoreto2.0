@@ -19,9 +19,9 @@ class CrearSala extends Component {
 
     };
 
-    regresarHome()
+    regresarSala()
     {
-        FlowRouter.go("/");
+        FlowRouter.go("/")
     }
 
     render() {
@@ -37,7 +37,7 @@ class CrearSala extends Component {
                     />
                     <p></p>
                     <button className="btnContactSubmit" onClick={this.crearSala.bind(this)} >crearSala</button>
-
+                    
                 </div>
             </div>
 

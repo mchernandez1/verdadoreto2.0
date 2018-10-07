@@ -13,13 +13,12 @@ import { Random } from 'meteor/random';
         this.state={
             esperando:true,
             players:[],
-            
-            seleccionado:'',
+            seleccionado:false,
             
         }
         this.renderJugadores = this.renderJugadores.bind(this);
         this.renderJugadorAleotorio=this.renderJugadorAleotorio.bind(this);
-        this.renderPreguntaAleotorio=this.renderPreguntaAleotorio.bind(this);
+
         
     }
 
@@ -48,31 +47,29 @@ import { Random } from 'meteor/random';
     {
         let players=this.props.sala.players;
         let player=Random.choice(players);
-        return (
-            <div>
-            <p>{player}</p>
-            </div>
-        )
+
+        if(this.props.currentUser.username== player)
+        {
+            return (
+                <div>
+                <p>Fuiste seleccionado {player}</p>
+                <p></p>
+                <button className="home">Pregunta/Reto</button>
+                </div>
+                )
+        }
+        else
+        { 
+            return (
+                <div>
+                <p>No has sido selecccionado para jugar</p>
+                </div>
+                )
+
+        }
     }
 
-    renderPreguntaAleotorio()
-    {
-        let preguntas=[
-            {
-                "reto" : "quitarse una ceja "
-            },
-            {
-                "reto" : "cuantos novios/as has tenido"
-            }
-        ]
-        let pregunta=Random.choice(preguntas);
-        return (
-            <div>
-            <p>{pregunta}</p>
-            </div>
-        )
-    }
-
+    
 
     render() {
         return (
@@ -91,13 +88,11 @@ import { Random } from 'meteor/random';
                 </div>
                 :this.props.currentUser && this.state.esperando == false ?
                 <div>
-                    <h2>Jugador Seleccionado:{this.renderJugadorAleotorio()}</h2>
-                    
-                    <h2>Pregunta/reto seleccionada:{this.renderPreguntaAleotorio()}</h2>
-
+                    {this.renderJugadorAleotorio()}
+                    <p></p>
                     <button className="home" onClick={() => this.setState({esperando : true})}>Volver a jugar </button>
                 </div>
-                :this.props.currentUser && this.state.seleccionado == this.props.currentUser.username ?
+                :this.props.currentUser  && this.state.seleccionado==true ?
                 <div>
                     <h2>Pregunta/reto seleccionada:</h2>  
                 </div>  
