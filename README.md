@@ -41,7 +41,7 @@ Steps:
 
 1)clone the repository 
 
-    git clone https://github.com/jjgonzalez10/verdadoreto.git
+    git clone https://github.com/jjgonzalez10/verdadoreto2.0.git
 
 2)After you cloned the repository , you have to install all the dependencies
 
@@ -51,7 +51,7 @@ Steps:
 
 3)If you want to run the application you have to follow the next steps
 
-    - meteor run 
+    meteor run 
     
 
 
