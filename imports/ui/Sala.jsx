@@ -13,7 +13,6 @@ import { Random } from 'meteor/random';
         this.state={
             esperando:true,
             players:[],
-            seleccionado:false,
             
         }
         this.renderJugadores = this.renderJugadores.bind(this);
@@ -42,34 +41,47 @@ import { Random } from 'meteor/random';
         })
     }
 
-    
     renderJugadorAleotorio()
     {
-        let players=this.props.sala.players;
-        let player=Random.choice(players);
-
-        if(this.props.currentUser.username== player)
+        let arreglo=[
+            "debes bailarle a la persona de al lado",
+            "¿quien fue tu primer novio ?",
+            "¿te gusta alguien de esta sala ?",
+            "¿si tuvieras que irte con alguien de esta sala con quien te irias?",
+            "hacer el ocho con la cola "
+        ]
+        let p=Random.choice(arreglo);
+        let jugadores=this.props.sala.players;
+        let r=Random.choice(jugadores);
+        Meteor.call('salas.player',this.props.sala.owner,r,(err,res)=>{
+                console.log(err);
+                
+                console.log(res)
+                
+        });
+        if(this.props.sala.seleccionado == this.props.currentUser.username)
         {
-            return (
-                <div>
-                <p>Fuiste seleccionado {player}</p>
-                <p></p>
-                <button className="home">Pregunta/Reto</button>
-                </div>
-                )
+        return (
+            <div>
+            <p>Fuiste seleccionado {r}</p>
+            <p></p>
+            <p>La pregunta/reto es {p}</p>
+            </div>
+            )
         }
         else
         { 
-            return (
-                <div>
-                <p>No has sido selecccionado para jugar</p>
-                </div>
-                )
+        return (
+            <div>
+            <p>No has sido selecccionado para jugar</p>
+            </div>
+            )
 
         }
-    }
+        
 
-    
+    };
+
 
     render() {
         return (
@@ -89,13 +101,7 @@ import { Random } from 'meteor/random';
                 :this.props.currentUser && this.state.esperando == false ?
                 <div>
                     {this.renderJugadorAleotorio()}
-                    <p></p>
-                    <button className="home" onClick={() => this.setState({esperando : true})}>Volver a jugar </button>
                 </div>
-                :this.props.currentUser  && this.state.seleccionado==true ?
-                <div>
-                    <h2>Pregunta/reto seleccionada:</h2>  
-                </div>  
                 : ""}
             </div>
         );

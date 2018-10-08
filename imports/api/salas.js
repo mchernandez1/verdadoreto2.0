@@ -30,6 +30,7 @@ Meteor.methods({
       players:[ Meteor.users.findOne(this.userId).username],
       createdAt: new Date(),
       owner: Meteor.users.findOne(this.userId).username,
+      seleccionado:'',
   
     });
   },
@@ -54,6 +55,11 @@ Meteor.methods({
     }
 
   },
+  'salas.player'(idOwner,selecciona) { 
+
+        Salas.update({owner:idOwner}, { $set: {seleccionado:selecciona}});
+  },
+  
 
 
 });
