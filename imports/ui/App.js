@@ -19,7 +19,8 @@ class App extends Component {
       paso : 1
     };
   }
-
+  
+//Podrían hacer uso de templates en un archivo HTML y luego hacer el manejo de eventos en los archivos .js de los elementos lógicos
     render() {
       return (
         <div className="container-text">
